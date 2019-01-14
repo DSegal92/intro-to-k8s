@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lnl-redis-deployment
+  labels:
+    app: lnl-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lnl-redis
+  template:
+    metadata:
+      labels:
+        app: lnl-redis
+    spec:
+      containers:
+        - name: lnl-redis
+          image: redis
+          ports:
+            - containerPort: 6379
+              name: redis-port
+              protocol: TCP
