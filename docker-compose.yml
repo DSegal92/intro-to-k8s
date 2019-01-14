@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  redis:
+    image: redis
+  app:
+    build: .
+    restart: always
+    ports:
+      - '4567:4567'
+    depends_on:
+      - redis
+    environment:
+      - NAME=Dan
+      - REDIS_HOST=redis
+      - MY_SECRET="something secret"
