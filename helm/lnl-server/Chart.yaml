@@ -1,0 +1,8 @@
+name: lnl-server
+version: 0.0.1
+description: A thing
+keywords:
+  - assurant
+engine: gotpl
+deprecated: false
+#tillerVersion: The version of Tiller that this chart requires. This should be expressed as a SemVer range: ">2.0.0" (optional)

@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "app_fullname" . }}
+  labels:
+    app: {{ template "name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    component: app
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas.lnl_server }}
+  selector:
+    matchLabels:
+      app: {{ template "app_fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "app_fullname" . }}
+    spec:
+      containers:
+      - name: lnl-server
+        image: "{{ .Values.images.registry }}/{{ .Values.images.name }}:{{ .Values.images.tag }}"
+        ports:
+          - containerPort: 4567
+            name: lnl-server-port
+            protocol: TCP
+        env:
+          - name: REDIS_HOST
+            value: {{ template "redis_service_fullname" . }}
+          - name: MY_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.secrets.lnl_server_secrets }}
+                key: my_secret

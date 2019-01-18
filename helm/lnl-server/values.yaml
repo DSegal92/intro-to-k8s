@@ -1,0 +1,12 @@
+hostname: <hostname>
+
+replicas:
+  lnl_server: 1
+
+images:
+  registry: <registry>
+  tag: 'live-demo'
+  name: 'k8s-lunch-and-learn'
+
+secrets:
+  lnl_server_secrets: 'lnl-server-secrets'
