@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lnl-server
+  labels:
+    app: lnl-server-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lnl-server
+  template:
+    metadata:
+      labels:
+        app: lnl-server
+    spec:
+      containers:
+        - name: lnl-server
+          image: <registry-url>/k8s-lunch-and-learn:<image-tag>
+          ports:
+            - containerPort: 4567
+              name: lnl-server-port
+              protocol: TCP
+          env:
+            - name: REDIS_HOST
+              value: redis-service
